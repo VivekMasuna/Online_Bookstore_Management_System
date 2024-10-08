@@ -1,0 +1,53 @@
+<% layout('/layouts/boilerplate') %>
+
+<style>
+    .login-header {
+        width: 250px;
+    }
+
+    .wrapper {
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .login_box {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <form method="post" action="/admin/request" novalidate class="needs-validation">
+
+            <div class="login_box">
+                <div class="login-header">
+                    <span>Admin Request</span>
+                </div>
+
+                <div class="input_box">
+                    <input type="text" name="username" class="input-field" required>
+                    <label for="username" class="label">Username</label>
+                    <i class="bx bx-user icon"></i>
+                </div>
+
+                <div class="input_box">
+                    <input type="email" name="email" class="input-field" required>
+                    <label for="email" class="label">Email</label>
+                    <i class="bx bx-envelope icon"></i>
+                </div>
+
+                <div class="input_box">
+                    <input type="password" name="password" class="input-field" required>
+                    <label for="password" class="label">Password</label>
+                    <i class="bx bx-lock-alt icon"></i>
+                </div>
+
+                <div class="input_box">
+                    <input type="submit" class="input-submit" value="Send Request">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>

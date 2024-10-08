@@ -1,0 +1,35 @@
+<body>
+    <header>
+        <a style="text-decoration: none;" href="/" class="logo">
+            <img src="/assets/Logo.png" alt="Image">
+        </a>
+        <div class="mean-toggle"></div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <% if(currAdmin) { %>
+                    <li><a href="/admin/dashboard">Dashboard</a></li>
+                <% } %>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <% if(!currUser) { %>
+                    <li><a href="/login">Log in</a></li>
+                <% } else { %>
+                    <li><a href="/logout">Log out</a></li>
+                <% } %>
+            </ul>
+        </nav>
+        <div class="clear"></div>
+    </header>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.mean-toggle').click(function () {
+                $('.mean-toggle').toggleClass('active')
+                $('nav').toggleClass('active')
+            })
+        })
+    </script>
+</body>

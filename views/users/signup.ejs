@@ -1,0 +1,169 @@
+<% layout('/layouts/boilerplate') %>
+
+<style>
+    .wrapper {
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .login_box {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .name {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .name .input_box {
+        width: 48%;
+        margin-bottom: 15px;
+    }
+
+    .register-button {
+        margin-left: 8rem;
+        margin-right: 8rem;
+    }
+
+    #dob {
+        padding: 20px;
+        z-index: 10;
+    }
+
+    #dob2 {
+        z-index: 20;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+
+    /* Media Queries */
+    @media (max-width: 1200px) {
+        .register-button {
+            margin-left: 5rem;
+            margin-right: 5rem;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .name .input_box {
+            width: 48%;
+        }
+
+        .register-button {
+            margin-left: 4rem;
+            margin-right: 4rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .name .input_box {
+            width: 100%;
+        }
+
+        .register-button {
+            margin-left: 2rem;
+            margin-right: 2rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .register-button {
+            margin-left: 1rem;
+            margin-right: 1rem;
+        }
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <form method="post" action="/signup" novalidate class="needs-validation">
+            <div class="login_box">
+                <div class="login-header">
+                    <span>Register</span>
+                </div>
+
+                <div class="name">
+                    <div class="input_box">
+                        <input type="text" id="first-name" name="first_name" class="input-field" required>
+                        <label for="first-name" class="label">First Name</label>
+                    </div>
+
+                    <div class="input_box">
+                        <input type="text" id="last-name" name="last_name" class="input-field" required>
+                        <label for="last-name" class="label">Last Name</label>
+                    </div>
+                </div>
+
+                <div class="input_box">
+                    <input type="date" id="dob" name="dob" class="input-field">
+                    <label for="dob" id="dob2" class="label">Date of Birth</label>
+                    <i class="bx bx-calendar icon"></i>
+                </div>
+
+                <div>
+                    <div class="input_box">
+                        <input type="tel" id="mobile" name="mobile" value="+91" class="input-field" required>
+                        <label for="mobile" class="label">Mobile</label>
+                        <i class="bx bx-phone icon"></i>
+                    </div>
+                </div>
+
+                <div class="input_box">
+                    <input type="email" id="email" name="email" class="input-field" required>
+                    <label for="email" class="label">Email</label>
+                    <i class='bx bx-envelope icon'></i>
+                </div>
+
+                <div class="input_box">
+                    <input type="text" id="user" name="username" class="input-field" required>
+                    <label for="user" class="label">Username</label>
+                    <i class="bx bx-user icon"></i>
+                </div>
+
+                <div class="input_box">
+                    <input type="password" id="pass" name="password" class="input-field" required>
+                    <label for="pass" class="label">Password</label>
+                    <i class='bx bx-lock-alt icon'></i>
+                </div>
+
+                <div class="input_box" style="width: 25%; margin: auto; height: 2.5rem;">
+                    <button type="submit" id="submit" name="submit" class="submit_btn input-submit">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Custom validation script
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('.needs-validation');
+
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add('was-validated');
+            }, false);
+
+            // Additional custom validations can be added here
+            document.getElementById('mobile').addEventListener('input', function (event) {
+                const mobileField = event.target;
+                const mobilePattern = /^\+91\d{10}$/;
+
+                if (!mobilePattern.test(mobileField.value)) {
+                    mobileField.setCustomValidity('Please enter a valid Indian mobile number (+91 followed by 10 digits).');
+                } else {
+                    mobileField.setCustomValidity('');
+                }
+            });
+        });
+    </script>
+</body>

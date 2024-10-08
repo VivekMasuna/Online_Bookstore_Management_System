@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+SC&display=swap');
+@import url(responsive.css);
+
+header {
+  position: relative;
+  max-width: 1200px;
+  margin: 20px;
+  margin-left: calc((100vw - 1200px) / 2);
+  padding: 10px;
+  background: #FFF;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+}
+
+.logo {
+  float: left;
+}
+
+.logo img {
+  max-height: 3.8rem;
+}
+
+nav {
+  float: right;
+}
+
+.clear {
+  clear: both;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  list-style: none;
+}
+
+nav ul li a {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #262626;
+}
+
+nav ul li a.active,
+nav ul li a:hover {
+  background: #D7263D;
+  color: #fff;
+  transition: 0.5s;
+  text-decoration: none;
+}
+
+@media (max-width: 1200px) {
+  header {
+    margin: 20px;
+  }
+}
+
+@media (max-width: 1003px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .mean-toggle {
+    display: block;
+    width: auto;
+    height: auto;
+    margin: 10px;
+    float: right;
+    cursor: pointer;
+    text-align: center;
+    font-size: 30px;
+    color: #D7263D;
+  }
+
+  .mean-toggle:before {
+    content: '\f0c9';
+    font-family: fontAwesome;
+    line-height: 40px;
+  }
+
+  .mean-toggle.active:before {
+    content: '\f00d';
+  }
+
+  nav {
+    display: none;
+  }
+
+  nav.active {
+    display: block;
+    width: 100%;
+  }
+
+  nav.active ul {
+    display: block;
+  }
+
+  nav.active ul li {
+    margin: 0;
+    text-align: center;
+  }
+}

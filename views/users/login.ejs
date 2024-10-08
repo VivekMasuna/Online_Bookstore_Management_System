@@ -1,0 +1,71 @@
+<% layout('/layouts/boilerplate') %>
+
+<style>
+    a:hover {
+        color: white;
+    }
+
+    .adminLogin {
+        margin-top: 0.5rem;
+        text-align: center;
+    }
+
+    .wrapper {
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .login_box {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <form method="post" action="/login" novalidate class="needs-validation">
+
+            <div class="login_box">
+                <div class="login-header">
+                    <span>Login</span>
+                </div>
+
+                <div class="input_box">
+                    <input type="text" id="user" name="username" class="input-field" required>
+                    <label for="user" class="label">Username</label>
+                    <i class="bx bx-user icon"></i>
+                </div>
+
+                <div class="input_box">
+                    <input type="password" name="password" id="pass" class="input-field" required>
+                    <label for="pass" class="label">Password</label>
+                    <i class="bx bx-lock-alt icon"></i>
+                </div>
+
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+
+                    <div class="forgot">
+                        <a href="/forgot">Forgot password?</a>
+                    </div>
+                </div>
+
+                <div class="input_box">
+                    <input type="submit" class="input-submit" value="Login">
+                </div>
+
+                <div class="register">
+                    <span>Don't have an account? <a href="/signup">Register</a></span>
+                </div>
+
+                <div class="adminLogin">
+                    <a href="/admin/login">Login as Admin</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>

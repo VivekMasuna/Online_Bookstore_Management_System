@@ -1,0 +1,54 @@
+<% layout('/layouts/boilerplate') %>
+
+<style>
+    a:hover {
+        color: white;
+    }
+
+    .login-header {
+        width: 200px;
+    }
+
+    .wrapper {
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .login_box {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <form method="post" action="/admin/login" novalidate class="needs-validation">
+            <div class="login_box">
+                <div class="login-header">
+                    <span>Admin Login</span>
+                </div>
+
+                <div class="input_box">
+                    <input type="text" name="username" class="input-field" required>
+                    <label for="username" class="label">Username</label>
+                    <i class="bx bx-user icon"></i>
+                </div>
+
+                <div class="input_box">
+                    <input type="password" name="password" class="input-field" required>
+                    <label for="password" class="label">Password</label>
+                    <i class="bx bx-lock-alt icon"></i>
+                </div>
+
+                <div class="input_box">
+                    <input type="submit" class="input-submit" value="Login">
+                </div>
+
+                <div class="register">
+                    <span><a href="/admin/request">Register as Admin</a></span>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>

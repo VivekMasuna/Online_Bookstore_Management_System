@@ -1,5 +1,213 @@
 <% layout('/layouts/boilerplate') %>
 
-<body>
-    <h1>Welcome to VR Bookstore</h1>    
-</body>
+    <style>
+        .container1 a:hover {
+            text-decoration: none;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        /* Featured Books Carousel */
+        .featured-books {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .featured-books p, h5 {
+            color: aliceblue !important;
+        }
+
+        .featured-books .carousel-inner img {
+            width: 300px;
+            /* Adjust the width as needed */
+            height: 400px;
+            /* Adjust the height as needed */
+            object-fit: cover;
+            /* Ensures image doesn't get distorted */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .featured-books .carousel-inner img:hover {
+            transform: scale(1.05);
+            /* Slight zoom effect on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            /* Enhance shadow on hover */
+        }
+
+        .featured-books .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .carousel-caption p {
+            margin: 0;
+        }
+
+        /* Categories Section */
+        .categories {
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .categories h2, h3 {
+            color: black !important;
+        }
+
+        .categories .category-card img {
+            width: 200px;
+            /* New width for the category images */
+            height: 250px;
+            /* New height for the category images */
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .categories .category-card:hover img {
+            transform: scale(1.05);
+            /* Slight zoom effect on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            /* Enhance shadow on hover */
+        }
+
+        .categories .category-card h3 {
+            margin-top: 10px;
+        }
+
+        /* Promotional Banners */
+        .promotional-banners {
+            margin: 40px 0;
+        }
+
+        .promotional-banners img {
+            width: 100%;
+            /* Full width for banners */
+            height: 300px;
+            /* Set new height for promotional banners */
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .promotional-banners img:hover {
+            transform: scale(1.03);
+            /* Slight zoom effect on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            /* Enhance shadow on hover */
+        }
+
+        /* Thumbnail Styles */
+        .thumbnail {
+            max-width: 150px;
+            /* Define a maximum width for smaller images */
+            max-height: 200px;
+            /* Define a maximum height for smaller images */
+            object-fit: cover;
+            /* Ensures the image maintains its aspect ratio */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.1);
+            /* Slight zoom on hover for interactivity */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+
+    <body>
+        <div class="container1">
+            <section class="welcome-section">
+                <h1>Welcome to VR Bookstore</h1>
+                <p>Discover your next great read!</p>
+            </section>
+
+            <section class="featured-books">
+                <h2>Featured Books</h2>
+                <div id="featuredBooksCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <% featuredBooks.forEach((book, index)=> { %>
+                            <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                <img src="<%= book.cover_image.url %>" class="thumbnail"
+                                    style="width: 300px; height: 400px;" alt="<%= book.title %>">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>
+                                        <%= book.title %>
+                                    </h5>
+                                    <p>
+                                        by <%= book.author %>
+                                    </p>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#featuredBooksCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#featuredBooksCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </section>
+
+            <section class="categories">
+                <h2>Browse by Categories</h2>
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="/books?category=Fiction" class="category-card">
+                            <img src="/images/fiction-category.jpg" alt="Fiction" class="img-fluid">
+                            <h3>Fiction</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/books?category=Non-Fiction" class="category-card">
+                            <img src="/images/nonfiction-category.jpg" alt="Non-Fiction" class="img-fluid">
+                            <h3>Non-Fiction</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/books?category=New%20Releases" class="category-card">
+                            <img src="/images/newreleases-category.jpg" alt="New Releases" class="img-fluid">
+                            <h3>New Releases</h3>
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="/books?category=Children" class="category-card">
+                            <img src="/images/children-category.jpg" alt="Children" class="img-fluid">
+                            <h3>Children's Books</h3>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="promotional-banners">
+                <h2>Special Offers</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="/promotions">
+                            <img src="/images/promo-banner-1.jpg" alt="Promo 1" class="img-fluid">
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="/promotions">
+                            <img src="/images/promo-banner-2.jpg" alt="Promo 2" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </body>

@@ -1,0 +1,218 @@
+<% layout('/layouts/boilerplate') %>
+
+    <style>
+        .shop-container {
+            display: flex;
+            margin: 30px 0;
+        }
+
+        /* Sidebar Styles */
+        .filters-sidebar {
+            width: 300px;
+            float: left;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin-right: 20px;
+        }
+
+        .filters-sidebar h4 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .filters-sidebar .filter-group {
+            margin-bottom: 30px;
+        }
+
+        .filters-sidebar .filter-group label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .filters-sidebar .filter-group input[type="range"] {
+            width: 100%;
+        }
+
+        .filters-sidebar .filter-group input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        /* Books Grid Section */
+        .books-grid {
+            display: grid;
+            flex-grow: 1;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+
+        @media (min-width: 1400px) {
+            .books-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1399px) {
+            .books-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 800px) and (max-width: 1199px) {
+            .books-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 799px) {
+            .books-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+        }
+
+
+        .book-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .book-card h5 {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .book-card p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .book-card .price {
+            color: #28a745;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .book-card button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-card button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add New Book Button Styles */
+        .add-books {
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .add-books a {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .add-books a:hover {
+            background-color: #218838;
+        }
+    </style>
+
+    <body>
+        <% if(currAdmin) { %>
+            <div class="add-books">
+                <a href="/shop/new">Add New Book</a>
+            </div>
+        <% } %>
+
+        <div class="container1 shop-container">
+            <aside class="filters-sidebar">
+                <h4>Filters</h4>
+
+                <div class="filter-group">
+                    <h5>Categories</h5>
+                    <label><input type="checkbox" value="Fiction"> Fiction</label>
+                    <label><input type="checkbox" value="Non-Fiction"> Non-Fiction</label>
+                    <label><input type="checkbox" value="Children"> Children's Books</label>
+                    <label><input type="checkbox" value="New Releases"> New Releases</label>
+                </div>
+
+                <div class="filter-group">
+                    <h5>Price Range</h5>
+                    <label>Price: $<span id="priceValue">100</span> - $1000</label>
+                    <input type="range" min="100" max="1000" step="10" id="priceRange">
+                </div>
+
+                <div class="filter-group">
+                    <h5>Author</h5>
+                    <input type="text" placeholder="Search author..." class="form-control">
+                </div>
+
+                <div class="filter-group">
+                    <h5>Ratings</h5>
+                    <label><input type="checkbox" value="5"> 5 Stars</label>
+                    <label><input type="checkbox" value="4"> 4 Stars & Up</label>
+                    <label><input type="checkbox" value="3"> 3 Stars & Up</label>
+                    <label><input type="checkbox" value="2"> 2 Stars & Up</label>
+                    <label><input type="checkbox" value="1"> 1 Star & Up</label>
+                </div>
+            </aside>
+
+            <section class="books-grid">
+                <% books.forEach((book)=> { %>
+                    <div class="book-card">
+                        <img src="<%= book.cover_image.url %>" alt="<%= book.title %>">
+                        <h5>
+                            <%= book.title %>
+                        </h5>
+                        <p>by <%= book.author %>
+                        </p>
+                        <p class="price">$<%= book.price %>
+                        </p>
+                        <button type="button" onclick="addToCart('<%= book._id %>', '<%= book.title %>')">Add to
+                            Cart</button>
+                    </div>
+                    <% }) %>
+            </section>
+        </div>
+
+        <script>
+            const priceRange = document.getElementById('priceRange');
+            const priceValue = document.getElementById('priceValue');
+
+            priceRange.addEventListener('input', function () {
+                priceValue.textContent = this.value;
+            });
+
+            function addToCart(bookId, bookTitle) {
+                alert(`${bookTitle} added to cart!`);
+                // Logic to handle adding book to cart goes here
+            }
+        </script>
+    </body>
